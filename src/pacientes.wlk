@@ -1,7 +1,7 @@
 import aparatos.*
 
 class Paciente{
-	var property edad
+	const property edad
 	var nivelDeDolor
 	var nivelDeFortaleza
 	const property rutinaAsignada = []
