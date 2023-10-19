@@ -1,0 +1,48 @@
+import aparatos.*
+import pacientes.*
+
+describe "Test de parte 3" {
+	const magneto = new Magneto(color = "Verde")
+	const bicicleta = new Bicicleta()
+	const bicicletaRoja = new Bicicleta(color = "Rojo")
+	const minitramp = new Minitramp()
+	
+	const nicolas = new PacienteResidente(edad = 40, nivelDeDolor = 10, nivelDeFortaleza = 20, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const victoria = new PacienteCaprichoso(edad = 30, nivelDeDolor = 10, nivelDeFortaleza = 40, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const julian = new PacienteCaprichoso(edad = 20, nivelDeDolor = 54, nivelDeFortaleza = 50, rutinaAsignada = [bicicletaRoja,magneto,bicicleta])
+	const zoe = new PacienteRapidaRecuperacion(edad = 50, nivelDeDolor = 14, nivelDeFortaleza = 40, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	
+	method initialize(){
+		nicolas.realizarRutina()
+		julian.realizarRutina()
+		zoe.valorDecremento(2)
+		zoe.realizarRutina()
+	}
+	
+	test "Nicolas puede hacer la rutina"{
+		assert.that(nicolas.puederealizarRutina())
+	}
+	test "el nivel de dolor de Nicolas baja a 1.8"{
+		assert.equals(1.8,nicolas.nivelDeDolor())
+	}
+	
+	test "Victoria NO puede realizar la rutina"{
+		assert.notThat(victoria.puederealizarRutina())
+	}
+	
+	
+	test "Julian puede hacer la rutina"{
+		assert.that(julian.puederealizarRutina())
+	}
+	test "el nivel de dolor de Julian baja a 29.3"{
+		assert.equals(29.3,julian.nivelDeDolor())
+	}
+	
+	
+	test "Zoe puede hacer la rutina"{
+		assert.that(zoe.puederealizarRutina())
+	}
+	test "despues de poner su decremento a 2, el nivel de dolor de Zoe baja a 3.4"{
+		assert.equals(3.4,zoe.nivelDeDolor())
+	}
+}

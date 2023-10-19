@@ -1,0 +1,36 @@
+import aparatos.*
+import pacientes.*
+import centroKinesio.*
+
+describe "test parte 5" {
+	const magneto = new Magneto()
+	const bici1 = new Bicicleta()
+	const bici2 = new Bicicleta()
+	
+	const nicolas = new Paciente(edad = 31, nivelDeDolor = 35, nivelDeFortaleza = 30, rutinaAsignada = [bici1,magneto,bici2,bici1,bici1])
+	const zoe = new Paciente(edad = 36, nivelDeDolor = 39, nivelDeFortaleza = 30, rutinaAsignada = [magneto,bici1,magneto,bici1])
+	
+	method initialize(){
+		centroKinesiologia.agregarPaciente(nicolas)
+		centroKinesiologia.agregarPaciente(zoe)
+		centroKinesiologia.agregarAparatos([magneto,bici1,bici2])
+		centroKinesiologia.realizarRutinas()
+	}
+	
+	test "el centro de kinesio NO esta en optimas condiciones"{
+		assert.notThat(centroKinesiologia.estanLosAparatosEnOptimasCondiciones())
+	}
+	
+	test "el centro de kinesio NO esta complicado"{
+		assert.notThat(centroKinesiologia.estaComplicado())
+	}
+	
+	test "El aparato complicado es la bici1"{
+		assert.equals(#{bici1},centroKinesiologia.aparatosComplicados())
+	}
+	
+	test "despues de realizar visita tecnica el centro de kinesio esta en optimas condiciones"{
+		centroKinesiologia.realizarVisitaTecnica()
+		assert.that(centroKinesiologia.estanLosAparatosEnOptimasCondiciones())
+	}
+}

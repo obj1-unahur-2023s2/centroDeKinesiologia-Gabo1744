@@ -1,0 +1,34 @@
+import aparatos.*
+import pacientes.*
+import centroKinesio.*
+
+describe "test de parte 4" {
+	const magneto = new Magneto(color = "Verde")
+	const bicicleta = new Bicicleta()
+	const bicicletaRoja = new Bicicleta(color = "Rojo")
+	const minitramp = new Minitramp()
+	
+	const nicolas = new PacienteResidente(edad = 40, nivelDeDolor = 10, nivelDeFortaleza = 20, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const victoria = new PacienteCaprichoso(edad = 30, nivelDeDolor = 10, nivelDeFortaleza = 40, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const julian = new PacienteCaprichoso(edad = 20, nivelDeDolor = 54, nivelDeFortaleza = 50, rutinaAsignada = [bicicletaRoja,magneto,bicicleta])
+	const zoe = new PacienteRapidaRecuperacion(edad = 50, nivelDeDolor = 14, nivelDeFortaleza = 40, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const leonardo = new Paciente(edad = 40,nivelDeDolor = 10,nivelDeFortaleza = 20, rutinaAsignada = [bicicleta,minitramp,bicicleta,magneto])
+	const milena = new Paciente(edad = 3,nivelDeDolor = 30,nivelDeFortaleza = 50, rutinaAsignada = [magneto,bicicleta])
+	
+	method initialize(){
+		centroKinesiologia.agregarAparatos([magneto,bicicleta,bicicletaRoja,minitramp])
+		centroKinesiologia.agregarPacientes([nicolas,victoria,julian,zoe,leonardo,milena])
+	}
+	
+	test "los colores de los aparatos son Rojo,Blanco y Verde"{
+		assert.equals(#{"Verde","Rojo","Blanco"},centroKinesiologia.coloresDeAparatos())
+	}
+	
+	test "la unica paciente menor a 8 años es Milena"{
+		assert.equals(#{milena},centroKinesiologia.pacientesMenoresA(8))
+	}
+	
+	test "los pacienes que no pueden realizar su rutina son Milena y Victoria"{
+		assert.equals(#{milena,victoria},centroKinesiologia.pacientesQueNoPuedenRealizarRutina())
+	}
+}
